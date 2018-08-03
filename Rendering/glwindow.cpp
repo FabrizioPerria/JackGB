@@ -2,12 +2,12 @@
 #include <QString>
 #include <QDebug>
 #include <QtOpenGL>
-#include "vertex.h"
+#include "Rendering/Data/vertex.h"
 
 static const Vertex vertices[] = {
-  Vertex( QVector3D( 0.00f,  0.75f, 1.0f), QVector3D(1.0f, 0.0f, 0.0f) ),
-  Vertex( QVector3D( 0.75f, -0.75f, 1.0f), QVector3D(0.0f, 1.0f, 0.0f) ),
-  Vertex( QVector3D(-0.75f, -0.75f, 1.0f), QVector3D(0.0f, 0.0f, 1.0f) )
+  Vertex( QVector2D( 0.00f,  0.75f), QVector3D(1.0f, 0.0f, 0.0f) ),
+  Vertex( QVector2D( 0.75f, -0.75f), QVector3D(0.0f, 1.0f, 0.0f) ),
+  Vertex( QVector2D(-0.75f, -0.75f), QVector3D(0.0f, 0.0f, 1.0f) )
 };
 
 
@@ -22,15 +22,12 @@ void GLWindow::initializeGL()
     initializeOpenGLFunctions();
     makeCurrent();
 
-    printContextInformation();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     //create GL program
     _program = new QOpenGLShaderProgram();
-    qDebug() << QDir::currentPath();
-
-    _program->addShaderFromSourceFile(QOpenGLShader::Vertex, "first.vert.glsl");
-    _program->addShaderFromSourceFile(QOpenGLShader::Fragment, "first.frag.glsl");
+    _program->addShaderFromSourceFile(QOpenGLShader::Vertex, "Rendering/Shaders/first.vert.glsl");
+    _program->addShaderFromSourceFile(QOpenGLShader::Fragment, "Rendering/Shaders/first.frag.glsl");
     _program->link();
     _program->bind();
 
@@ -47,7 +44,6 @@ void GLWindow::initializeGL()
     _program->enableAttributeArray(1);
     _program->setAttributeBuffer(0, GL_FLOAT, Vertex::positionOffset(), Vertex::PositionTupleSize, Vertex::stride());
     _program->setAttributeBuffer(1, GL_FLOAT, Vertex::colorOffset(), Vertex::ColorTupleSize, Vertex::stride());
-
 
     //release objects
     _vertex.release();

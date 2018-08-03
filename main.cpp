@@ -1,21 +1,20 @@
-#include "mainwindow.h"
 #include <QApplication>
-#include "glwindow.h"
+#include <QDebug>
+#include "gameboy.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QSurfaceFormat format;
-    format.setRenderableType(QSurfaceFormat::OpenGL);
-    format.setProfile(QSurfaceFormat::CoreProfile);
-    format.setVersion(4,1);
+    if(argc != 2)
+    {
+        qDebug() << "No ROM to open!";
+        return -1;
+    }
 
-    //MainWindow w;
-    GLWindow w;
-    w.setFormat(format);
-    w.resize(QSize(800, 600));
-    w.show();
+    GameBoy gameboy;
+    gameboy.Play(argv[1]);
 
     return a.exec();
+
 }

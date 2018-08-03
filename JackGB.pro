@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT       += core gui opengl widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,18 +25,37 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    glwindow.cpp \
-    vertex.cpp
+    Rendering/Data/vertex.cpp \
+    Rendering/glwindow.cpp \
+    UI/mainwindow.cpp \
+    CPU/cpu.cpp \
+    ROM/rom.cpp \
+    Memory/memory.cpp \
+    gameboy.cpp \
+    CPU/interrupts.cpp \
+    Input/input.cpp \
+    Rendering/display.cpp \
+    CPU/instructions.cpp
 
 HEADERS += \
-        mainwindow.h \
-    glwindow.h \
-    vertex.h
+    Rendering/Data/vertex.h \
+    Rendering/glwindow.h \
+    UI/mainwindow.h \
+    CPU/cpu.h \
+    CPU/registers.h \
+    Memory/bootrom.h \
+    ROM/rom.h \
+    Memory/memory.h \
+    gameboy.h \
+    CPU/instructions.h \
+    CPU/interrupts.h \
+    Input/input.h \
+    Rendering/display.h \
+    CPU/flags.h
 
-FORMS += \
-        mainwindow.ui
+FORMS +=
+    UI/mainwindow.ui
 
 DISTFILES += \
-    first.vert.glsl \
-    first.frag.glsl
+    Rendering/Shaders/first.frag.glsl \
+    Rendering/Shaders/first.vert.glsl
